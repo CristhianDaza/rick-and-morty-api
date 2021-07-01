@@ -16,7 +16,27 @@
           </div>
         </div>
 
-        <h2>Episodios donde apareció</h2>
+        <div class="contenedorEpisodios">
+          <h3>Episodios donde apareció</h3>
+          <div class="episodios">
+            <div class="episodio">
+              <p>{{ this.episode.name }}</p>
+              <p>{{ this.episode.air_date }}</p>
+            </div>
+            <div class="episodio">
+              <p>{{ this.episode.name }}</p>
+              <p>{{ this.episode.air_date }}</p>
+            </div>
+            <div class="episodio">
+              <p>{{ this.episode.name }}</p>
+              <p>{{ this.episode.air_date }}</p>
+            </div>
+            <div class="episodio">
+              <p>{{ this.episode.name }}</p>
+              <p>{{ this.episode.air_date }}</p>
+            </div>
+          </div>
+        </div>
 
         <div class="personajesInteresante">
           <h2>Personajes interesantes</h2>
@@ -135,8 +155,27 @@ export default {
   display: flex;
 }
 
+.episodios {
+  display: flex;
+  margin: 20px 0;
+}
+
+.episodio {
+  border: 1px solid white;
+  padding: 15px;
+}
+
+.episodio:not(:first-child) {
+  margin-left: 15px;
+}
+
+.episodio p:first-child {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 .detallePersonaje_imagen img {
-  width: 200px;
+  width: 300px;
   border-radius: 10px;
 }
 
@@ -155,7 +194,9 @@ export default {
   font-weight: bold;
 }
 
-.personajesInteresante h2{
-  font-size: 20px;
+.personajesInteresante h2, .contenedorEpisodios h3{
+  font-size: 25px;
+  margin-top: 50px;
+  font-weight: bold;
 }
 </style>
