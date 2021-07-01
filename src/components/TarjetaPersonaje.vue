@@ -54,12 +54,18 @@ export default {
 <style>
 .card {
   margin: 20px 0;
-  height: 400px;
+  height: 450px;
   border: 1px solid gray;
   background-color: transparent !important;
+  transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.title, .subtitle {
-  color: white;
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 32px 0 rgba(31,38,135,.37);
+}
+
+.subtitle {
+  margin: 0 !important;
 }
 </style>
