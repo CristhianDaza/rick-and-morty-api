@@ -9,7 +9,30 @@
     <template v-else>
       <template v-if="this.personajes.length > 0">
         <Buscador />
-        <Filtros />
+        <div class="filtros">
+          <p>Filtrar por:</p>
+          <b-field>
+            <b-select
+              placeholder="Status"
+              v-model="status"
+              @input="filtrarPersonajeStatus(status)"
+            >
+              <option value="alive">Alive</option>
+              <option value="dead">Dead</option>
+              <option value="unknown">Unknown</option>
+            </b-select>
+            <b-select
+              placeholder="Gender"
+              v-model="gender"
+              @input="filtrarPersonajeGender(gender)"
+            >
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="genderless">Genderless</option>
+              <option value="unknown">Unknown</option>
+            </b-select>
+          </b-field>
+        </div>
         <section class="contenedorPersonajes">
           <div
             v-for="personaje in personajes"
@@ -48,7 +71,6 @@
 import axios from "axios";
 import TarjetaPersonaje from "@/components/TarjetaPersonaje.vue";
 import Buscador from "@/components/Buscador.vue";
-import Filtros from "@/components/Filtros.vue";
 import Loader from "@/components/Loader.vue";
 
 export default {
@@ -62,15 +84,14 @@ export default {
       perPage: 20,
       pagina: Number(this.$route.query.pagina) || 1,
       busqueda: this.$route.query.busqueda || '',
-      status: this.$route.query.status || '',
-      gender: this.$route.query.gender || '',
+      status: this.$route.query.status || null,
+      gender: this.$route.query.gender || null,
     }
   },
   components: {
     TarjetaPersonaje,
     Loader,
     Buscador,
-    Filtros,
   },
   methods: {
     async getApi(
@@ -79,7 +100,7 @@ export default {
       status,
       gender,
     ) {
-      const url = `https://rickandmortyapi.com/api/character/?page=${pagina}&name=${busqueda}&status=${status}&gender=${gender}`;
+      const url = `https://rickandmortyapi.com/api/character/?page=${pagina}&name=${busqueda}&status=${status == null ? '' : status}&gender=${gender == null ? '' : gender}`;
       const config = {
         methods: 'get',
         url,
@@ -104,6 +125,28 @@ export default {
           pagina,
           busqueda: this.$route.query.busqueda,
           status: this.$route.query.status,
+          gender: this.$route.query.gender,
+        }
+      })
+    },
+    filtrarPersonajeGender(gender) {
+      this.$router.push({
+        path: this.$route.path,
+        query: {
+          pagina: this.$route.query.pagina,
+          busqueda: this.$route.query.busqueda,
+          status: this.$route.query.status,
+          gender,
+        }
+      })
+    },
+    filtrarPersonajeStatus(status) {
+      this.$router.push({
+        path: this.$route.path,
+        query: {
+          pagina: this.$route.query.pagina,
+          busqueda: this.$route.query.busqueda,
+          status,
           gender: this.$route.query.gender,
         }
       })
@@ -157,5 +200,19 @@ export default {
 
 .noEcontrado {
   font-size: 25px;
+}
+
+.filtros{
+  display: flex;
+  align-items: center;
+}
+
+.filtros p {
+  font-size: 25px;
+}
+
+.filtros .control {
+  padding-left: 40px;
+  margin: 10px 0;
 }
 </style>
