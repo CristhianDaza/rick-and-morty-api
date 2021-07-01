@@ -180,16 +180,6 @@ export default {
   flex-basis: 24%;
 }
 
-/* .pagination-link.is-current {
-  background-color: #0d1117 !important;
-  border-color: #fff !important;
-}
-
-.pagination-link:active {
-  border-color: #0d1117 !important;
-
-} */
-
 .pagination-previous, .pagination-next, .pagination-link{
   color: #fff !important;
 }
@@ -218,7 +208,7 @@ export default {
 
 @media (max-width: 768px) {
   .tarjetaPersonajes {
-    flex-basis: 33%;
+    flex-basis: 48%;
   }
 }
 
@@ -236,7 +226,7 @@ export default {
     max-width: 90%;
   }
 }
-@media (max-width: 375px) {
+@media (max-width: 425px) {
   .tarjetaPersonajes {
     flex-basis: 100%;
   }

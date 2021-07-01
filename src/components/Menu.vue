@@ -28,6 +28,6 @@ export default {
 
 .menu-principal img {
     width: 150px;
-    padding: 5px 0;
+    padding: 10px 0 5px 0;
 }
 </style>

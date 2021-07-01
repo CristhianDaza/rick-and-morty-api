@@ -65,7 +65,29 @@ export default {
   box-shadow: 0 8px 32px 0 #7957d5;
 }
 
+.card:active {
+  transform: translate(0);
+}
+
 .subtitle {
   margin: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    height: 380px;
+  }
+  .title {
+    font-size: 20px !important;
+  }
+  .subtitle {
+    font-size: 15px !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .card {
+    height: 420px;
+  }
 }
 </style>
