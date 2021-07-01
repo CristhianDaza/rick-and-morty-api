@@ -18,22 +18,16 @@
 
         <div class="contenedorEpisodios">
           <h3>Episodios donde apareció</h3>
-          <div class="episodios">
-            <div class="episodio">
-              <p>{{ this.episode.name }}</p>
-              <p>{{ this.episode.air_date }}</p>
+          <div class="episodios" v-if="this.episode[0].length > 0">
+            <div class="episodio" v-for="ep in this.episode[0]" :key="ep.id">
+              <p>{{ ep.name }}</p>
+              <p>{{ ep.air_date }}</p>
             </div>
-            <div class="episodio">
-              <p>{{ this.episode.name }}</p>
-              <p>{{ this.episode.air_date }}</p>
-            </div>
-            <div class="episodio">
-              <p>{{ this.episode.name }}</p>
-              <p>{{ this.episode.air_date }}</p>
-            </div>
-            <div class="episodio">
-              <p>{{ this.episode.name }}</p>
-              <p>{{ this.episode.air_date }}</p>
+          </div>
+          <div class="episodios" v-else>
+            <div class="episodio" v-for="ep in this.episode" :key="ep.id">
+              <p>{{ ep.name }}</p>
+              <p>{{ ep.air_date }}</p>
             </div>
           </div>
         </div>
@@ -99,7 +93,7 @@ export default {
           this.personaje.episode.forEach(ep => {
             this.episodios.push(ep)
           });
-          this.getEpisodio(this.episodios)
+          this.getEpisodios(this.episodios)
         })
         .catch(error => console.log(error))
     },
@@ -118,8 +112,18 @@ export default {
         })
         .catch(error => console.log(error))
     },
-    async getEpisodio(urlEp) {
-      const url = `${urlEp}`;
+    async getEpisodios(urlEp) {
+      const episodio = []
+      urlEp.forEach(ep => {
+        episodio.push(ep.slice(40,42))
+      })
+      this.getEpisodio(Array(episodio))
+    },
+    numeroRandom(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    },
+    async getEpisodio(episodio) {
+      const url = `https://rickandmortyapi.com/api/episode/${episodio}`;
       const config = {
         methods: 'get',
         url,
@@ -129,14 +133,11 @@ export default {
       }
       await axios(config)
         .then(res => {
-          this.episode = res.data
+          this.episode.push(res.data)
           console.log(this.episode)
         })
-        .catch(error => console.log(error))
-    },
-    numeroRandom(min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
-    },
+      .catch(error => console.log(error))
+    }
   },
   mounted() {
     this.getPersonaje();
@@ -157,16 +158,17 @@ export default {
 
 .episodios {
   display: flex;
+  flex-wrap: wrap;
   margin: 20px 0;
 }
 
 .episodio {
   border: 1px solid white;
   padding: 15px;
+  margin: 0 15px 15px 0;
 }
 
-.episodio:not(:first-child) {
-  margin-left: 15px;
+.episodio {
 }
 
 .episodio p:first-child {
