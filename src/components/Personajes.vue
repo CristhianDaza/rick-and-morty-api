@@ -180,7 +180,7 @@ export default {
   flex-basis: 24%;
 }
 
-.pagination-link.is-current {
+/* .pagination-link.is-current {
   background-color: #0d1117 !important;
   border-color: #fff !important;
 }
@@ -188,7 +188,7 @@ export default {
 .pagination-link:active {
   border-color: #0d1117 !important;
 
-}
+} */
 
 .pagination-previous, .pagination-next, .pagination-link{
   color: #fff !important;

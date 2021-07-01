@@ -62,7 +62,7 @@ export default {
 
 .card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 32px 0 rgba(31,38,135,.37);
+  box-shadow: 0 8px 32px 0 #7957d5;
 }
 
 .subtitle {

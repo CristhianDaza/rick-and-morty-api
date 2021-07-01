@@ -168,9 +168,6 @@ export default {
   margin: 0 15px 15px 0;
 }
 
-.episodio {
-}
-
 .episodio p:first-child {
   font-weight: bold;
   margin-bottom: 10px;
