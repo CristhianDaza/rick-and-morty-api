@@ -32,18 +32,27 @@ export default {
   name: 'filtros',
   data() {
     return {
-      gender: null,
+      gender: this.$route.query.gender || null,
       status: this.$route.query.status || null,
     }
   },
   methods: {
     filtrarPersonajeGender(gender) {
-      console.log('click', gender)
+      router.push({
+        path: '/',
+        query: {
+          busqueda: this.$route.query.busqueda,
+          gender,
+          status: this.$route.query.status,
+        }
+      })
     },
     filtrarPersonajeStatus(status) {
       router.push({
         path: '/',
         query: {
+          busqueda: this.$route.query.busqueda,
+          gender: this.$route.query.gender,
           status,
         }
       })

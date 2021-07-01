@@ -63,6 +63,7 @@ export default {
       pagina: Number(this.$route.query.pagina) || 1,
       busqueda: this.$route.query.busqueda || '',
       status: this.$route.query.status || '',
+      gender: this.$route.query.gender || '',
     }
   },
   components: {
@@ -76,8 +77,9 @@ export default {
       pagina,
       busqueda,
       status,
+      gender,
     ) {
-      const url = `https://rickandmortyapi.com/api/character/?page=${pagina}&name=${busqueda}&status=${status}`;
+      const url = `https://rickandmortyapi.com/api/character/?page=${pagina}&name=${busqueda}&status=${status}&gender=${gender}`;
       const config = {
         methods: 'get',
         url,
@@ -102,6 +104,7 @@ export default {
           pagina,
           busqueda: this.$route.query.busqueda,
           status: this.$route.query.status,
+          gender: this.$route.query.gender,
         }
       })
     }
@@ -111,6 +114,7 @@ export default {
       this.pagina,
       this.busqueda,
       this.status,
+      this.gender,
     );
   },
 };
