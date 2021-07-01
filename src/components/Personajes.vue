@@ -1,36 +1,44 @@
 <template>
   <div class="contenedor">
-    <template v-if="this.personajes.length > 0">
+    <template v-if="this.personajes == null">
       <Buscador />
-      <section class="contenedorPersonajes">
-        <div
-          v-for="personaje in personajes"
-          :key="personaje.id"
-          class="tarjetaPersonajes"
-        >
-          <TarjetaPersonaje
-            :personaje=personaje
-          />
-        </div>
-      </section>
-
-      <section>
-        <b-pagination
-          :total="total"
-          v-model="current"
-          :order="order"
-          :per-page="perPage"
-          range-before="5"
-          range-after="5"
-          @change="cambiarPagina(current)"
-          class="paginacion"
-        >
-
-        </b-pagination>
-      </section>
+      <p class="noEcontrado">
+        Personaje no econtrado
+      </p>
     </template>
     <template v-else>
-      <Loader />
+      <template v-if="this.personajes.length > 0">
+        <Buscador />
+        <section class="contenedorPersonajes">
+          <div
+            v-for="personaje in personajes"
+            :key="personaje.id"
+            class="tarjetaPersonajes"
+          >
+            <TarjetaPersonaje
+              :personaje=personaje
+            />
+          </div>
+        </section>
+
+        <section>
+          <b-pagination
+            :total="total"
+            v-model="current"
+            :order="order"
+            :per-page="perPage"
+            range-before="5"
+            range-after="5"
+            @change="cambiarPagina(current)"
+            class="paginacion"
+          >
+
+          </b-pagination>
+        </section>
+      </template>
+      <template v-else>
+        <Loader />
+      </template>
     </template>
   </div>
 </template>
@@ -74,7 +82,10 @@ export default {
           this.personajes = res.data.results
           this.total = res.data.info.count
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          this.personajes = null
+          }
+        )
     },
     cambiarPagina(pagina) {
       this.$router.push({
@@ -128,5 +139,9 @@ export default {
 
 .paginacion {
   padding: 10px 0 50px 0;
+}
+
+.noEcontrado {
+  font-size: 25px;
 }
 </style>
