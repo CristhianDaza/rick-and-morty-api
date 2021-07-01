@@ -215,4 +215,30 @@ export default {
   padding-left: 40px;
   margin: 10px 0;
 }
+
+@media (max-width: 768px) {
+  .tarjetaPersonajes {
+    flex-basis: 33%;
+  }
+}
+
+@media (max-width: 550px) {
+  .tarjetaPersonajes {
+    flex-basis: 50%;
+  }
+  .filtros {
+    flex-direction: column;
+  }
+  .filtros .control {
+    padding: 0;
+  }
+  .contenedor {
+    max-width: 90%;
+  }
+}
+@media (max-width: 375px) {
+  .tarjetaPersonajes {
+    flex-basis: 100%;
+  }
+}
 </style>
