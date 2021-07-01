@@ -9,6 +9,7 @@
     <template v-else>
       <template v-if="this.personajes.length > 0">
         <Buscador />
+        <Filtros />
         <section class="contenedorPersonajes">
           <div
             v-for="personaje in personajes"
@@ -47,6 +48,7 @@
 import axios from "axios";
 import TarjetaPersonaje from "@/components/TarjetaPersonaje.vue";
 import Buscador from "@/components/Buscador.vue";
+import Filtros from "@/components/Filtros.vue";
 import Loader from "@/components/Loader.vue";
 
 export default {
@@ -59,17 +61,23 @@ export default {
       order: 'is-centered',
       perPage: 20,
       pagina: Number(this.$route.query.pagina) || 1,
-      busqueda: this.$route.query.busqueda || ''
+      busqueda: this.$route.query.busqueda || '',
+      status: this.$route.query.status || '',
     }
   },
   components: {
     TarjetaPersonaje,
     Loader,
     Buscador,
+    Filtros,
   },
   methods: {
-    async getApi(pagina, busqueda) {
-      const url = `https://rickandmortyapi.com/api/character/?page=${pagina}&name=${busqueda}`;
+    async getApi(
+      pagina,
+      busqueda,
+      status,
+    ) {
+      const url = `https://rickandmortyapi.com/api/character/?page=${pagina}&name=${busqueda}&status=${status}`;
       const config = {
         methods: 'get',
         url,
@@ -93,6 +101,7 @@ export default {
         query: {
           pagina,
           busqueda: this.$route.query.busqueda,
+          status: this.$route.query.status,
         }
       })
     }
@@ -100,7 +109,8 @@ export default {
   mounted() {
     this.getApi(
       this.pagina,
-      this.busqueda
+      this.busqueda,
+      this.status,
     );
   },
 };
