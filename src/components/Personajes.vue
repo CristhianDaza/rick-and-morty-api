@@ -1,37 +1,43 @@
 <template>
   <div class="contenedor">
-    <section class="contenedorPersonajes">
-      <div
-        v-for="personaje in personajes"
-        :key="personaje.id"
-        class="tarjetaPersonajes"
-      >
-        <TarjetaPersonaje
-          :personaje=personaje
-        />
-      </div>
-    </section>
+    <template v-if="this.personajes.length > 0">
+      <section class="contenedorPersonajes">
+        <div
+          v-for="personaje in personajes"
+          :key="personaje.id"
+          class="tarjetaPersonajes"
+        >
+          <TarjetaPersonaje
+            :personaje=personaje
+          />
+        </div>
+      </section>
 
-    <section>
-      <b-pagination
-        :total="total"
-        v-model="current"
-        :order="order"
-        :per-page="perPage"
-        range-before="5"
-        range-after="5"
-        @change="cambiarPagina(current)"
-        class="paginacion"
-      >
+      <section>
+        <b-pagination
+          :total="total"
+          v-model="current"
+          :order="order"
+          :per-page="perPage"
+          range-before="5"
+          range-after="5"
+          @change="cambiarPagina(current)"
+          class="paginacion"
+        >
 
-      </b-pagination>
-    </section>
+        </b-pagination>
+      </section>
+    </template>
+    <template v-else>
+      <Loader />
+    </template>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import TarjetaPersonaje from "@/components/TarjetaPersonaje.vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "Personajes",
@@ -47,6 +53,7 @@ export default {
   },
   components: {
     TarjetaPersonaje,
+    Loader,
   },
   methods: {
     async getApi(pagina) {

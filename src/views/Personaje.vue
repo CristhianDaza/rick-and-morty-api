@@ -2,35 +2,40 @@
   <div>
     <Menu />
     <div class="contenedor">
-      <h1>{{ personaje.name }}</h1>
-      <div class="detallePersonaje">
-        <div class="detallePersonaje_imagen">
-          <img :src="personaje.image" :alt="personaje.name">
-        </div>
-        <div class="detallePersonaje_info">
-          <p><span>Status:</span> {{ personaje.status }}</p>
-          <p><span>Gender:</span> {{ personaje.gender }}</p>
-          <p><span>Origin:</span> {{ personaje.origin.name }}</p>
-          <p><span>Species:</span> {{ personaje.species }}</p>
-        </div>
-      </div>
-
-      <h2>Episodios donde apareció</h2>
-
-      <div class="personajesInteresante">
-        <h2>Personajes interesantes</h2>
-        <div class="contenedorPersonajes">
-          <div
-            v-for="personaje in personajeInteresante"
-            :key="personaje.id"
-            class="tarjetaPersonajes"
-          >
-            <TarjetaPersonaje
-              :personaje="personaje"
-            />
+      <template v-if="this.personajeInteresante.length > 0">
+        <h1 v-if="personaje !== undefined">{{ personaje.name }}</h1>
+        <div class="detallePersonaje">
+          <div class="detallePersonaje_imagen">
+            <img  v-if="personaje !== undefined" :src="personaje.image" :alt="personaje.name">
+          </div>
+          <div class="detallePersonaje_info">
+            <p><span>Status:</span> {{ personaje.status }}</p>
+            <p><span>Gender:</span> {{ personaje.gender }}</p>
+            <p><span>Origin:</span> {{ personaje.origin.name }}</p>
+            <p><span>Species:</span> {{ personaje.species }}</p>
           </div>
         </div>
-      </div>
+
+        <h2>Episodios donde apareció</h2>
+
+        <div class="personajesInteresante">
+          <h2>Personajes interesantes</h2>
+          <div class="contenedorPersonajes">
+            <div
+              v-for="personaje in personajeInteresante[0]"
+              :key="personaje.id"
+              class="tarjetaPersonajes"
+            >
+              <TarjetaPersonaje
+                :personaje="personaje"
+              />
+            </div>
+          </div>
+        </div>
+      </template>
+      <template v-else>
+        <Loader />
+      </template>
     </div>
   </div>
 </template>
@@ -39,6 +44,7 @@
 import axios from 'axios'
 import Menu from '@/components/Menu.vue'
 import TarjetaPersonaje from '@/components/TarjetaPersonaje.vue'
+import Loader from '@/components/Loader.vue'
 
 export default {
   name: 'personaje',
@@ -53,6 +59,7 @@ export default {
   components: {
     Menu,
     TarjetaPersonaje,
+    Loader,
   },
   methods: {
     async getPersonaje() {
@@ -87,7 +94,7 @@ export default {
       }
       await axios(config)
         .then(res => {
-          this.personajeInteresante = res.data
+          this.personajeInteresante.push(res.data)
         })
         .catch(error => console.log(error))
     },
