@@ -1,8 +1,10 @@
 <template>
   <div class="menu-principal">
-    <router-link to="/">
-        <img :src="Logo" alt="Logo Rick And Morty" />
-    </router-link>
+    <div class="container is-widescreen">
+      <router-link to="/">
+          <img :src="Logo" alt="Logo Rick And Morty" />
+      </router-link>
+    </div>
   </div>
 </template>
 
