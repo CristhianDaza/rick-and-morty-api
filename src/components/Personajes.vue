@@ -21,6 +21,7 @@
         range-before="5"
         range-after="5"
         @change="cambiarPagina(current)"
+        class="paginacion"
       >
 
       </b-pagination>
@@ -108,5 +109,9 @@ export default {
 
 .pagination-previous, .pagination-next, .pagination-link{
   color: #fff !important;
+}
+
+.paginacion {
+  padding: 10px 0 50px 0;
 }
 </style>
