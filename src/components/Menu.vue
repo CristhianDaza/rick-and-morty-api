@@ -1,6 +1,6 @@
 <template>
   <div class="menu-principal">
-    <div class="container is-widescreen">
+    <div class="contenedor">
       <router-link to="/">
           <img :src="Logo" alt="Logo Rick And Morty" />
       </router-link>
@@ -23,7 +23,6 @@ export default {
 
 <style scoped>
 .menu-principal {
-    padding: 0 50px;
     background-color: #0d1117;
 }
 

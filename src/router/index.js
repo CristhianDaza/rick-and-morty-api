@@ -10,6 +10,12 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/:id',
+    name: 'Personaje',
+    exact: true,
+    component: () => import('../components/Personaje.vue')
+  },
 ]
 
 const router = new VueRouter({
