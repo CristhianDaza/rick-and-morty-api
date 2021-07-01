@@ -46,6 +46,8 @@ export default {
     return {
       personaje: [],
       personajeInteresante: [],
+      episodios: [],
+      episode: [],
     };
   },
   components: {
@@ -66,6 +68,11 @@ export default {
         .then(res => {
           this.personaje = res.data;
           this.getPersonajeInteresante()
+
+          this.personaje.episode.forEach(ep => {
+            this.episodios.push(ep)
+          });
+          this.getEpisodio(this.episodios)
         })
         .catch(error => console.log(error))
     },
@@ -81,13 +88,28 @@ export default {
       await axios(config)
         .then(res => {
           this.personajeInteresante = res.data
-          console.log(this.personajeInteresante)
+        })
+        .catch(error => console.log(error))
+    },
+    async getEpisodio(urlEp) {
+      const url = `${urlEp}`;
+      const config = {
+        methods: 'get',
+        url,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      await axios(config)
+        .then(res => {
+          this.episode = res.data
+          console.log(this.episode)
         })
         .catch(error => console.log(error))
     },
     numeroRandom(min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
-    }
+    },
   },
   mounted() {
     this.getPersonaje();
