@@ -54,7 +54,7 @@ export default {
 <style>
 .card {
   margin: 20px 0;
-  height: 450px;
+  height: 400px;
   border: 1px solid gray;
   background-color: transparent !important;
 }

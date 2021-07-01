@@ -16,8 +16,21 @@
       </div>
 
       <h2>Episodios donde apareció</h2>
-      
-      <h2>Personajes interesantes</h2>
+
+      <div class="personajesInteresante">
+        <h2>Personajes interesantes</h2>
+        <div class="contenedorPersonajes">
+          <div
+            v-for="personaje in personajeInteresante"
+            :key="personaje.id"
+            class="tarjetaPersonajes"
+          >
+            <TarjetaPersonaje
+              :personaje="personaje"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,16 +38,19 @@
 <script>
 import axios from 'axios'
 import Menu from '@/components/Menu.vue'
+import TarjetaPersonaje from '@/components/TarjetaPersonaje.vue'
 
 export default {
   name: 'personaje',
   data() {
     return {
       personaje: [],
+      personajeInteresante: [],
     };
   },
   components: {
     Menu,
+    TarjetaPersonaje,
   },
   methods: {
     async getPersonaje() {
@@ -48,10 +64,29 @@ export default {
       }
       await axios(config)
         .then(res => {
-          this.personaje = res.data
-          console.log(res.data)
+          this.personaje = res.data;
+          this.getPersonajeInteresante()
         })
         .catch(error => console.log(error))
+    },
+    async getPersonajeInteresante() {
+      const url = `https://rickandmortyapi.com/api/character/${this.numeroRandom(1,600)},${this.numeroRandom(1,600)},${this.numeroRandom(1,600)}`;
+      const config = {
+        methods: 'get',
+        url,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      await axios(config)
+        .then(res => {
+          this.personajeInteresante = res.data
+          console.log(this.personajeInteresante)
+        })
+        .catch(error => console.log(error))
+    },
+    numeroRandom(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
     }
   },
   mounted() {
@@ -89,5 +124,9 @@ export default {
 
 .detallePersonaje_info p span {
   font-weight: bold;
+}
+
+.personajesInteresante h2{
+  font-size: 20px;
 }
 </style>
